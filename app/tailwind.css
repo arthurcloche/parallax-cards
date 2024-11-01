@@ -10,3 +10,7 @@ body {
     color-scheme: dark;
   }
 }
+
+body {
+  font-family: "Inter", sans-serif;
+}
