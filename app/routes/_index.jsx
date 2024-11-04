@@ -1,7 +1,5 @@
 import Card from "../components/Card";
-import { useScroll } from "framer-motion";
 import { useEffect, useRef } from "react";
-import Lenis from "@studio-freight/lenis";
 
 export const meta = () => {
   return [
@@ -12,32 +10,46 @@ export const meta = () => {
 
 export default function Index() {
   const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start start", "end end"],
-  });
 
   useEffect(() => {
-    const lenis = new Lenis();
+    const initGSAP = async () => {
+      const gsap = (await import("gsap")).default;
+      const ScrollTrigger = (await import("gsap/ScrollTrigger")).default;
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+      gsap.registerPlugin(ScrollTrigger);
 
-    requestAnimationFrame(raf);
-  });
+      const ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: container.current,
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (self) => {
+            container.current.progress = self.progress;
+          },
+        });
+      });
+
+      return ctx;
+    };
+
+    let ctx;
+    initGSAP().then((context) => {
+      ctx = context;
+    });
+
+    return () => ctx?.revert();
+  }, []);
 
   return (
     <main ref={container} className="relative">
-      {projects.map((project, i) => {
-        const targetScale = 1 - (projects.length - i) * 0.05;
+      {cards.map((card, i) => {
+        const targetScale = 1 - (cards.length - i) * 0.05;
         return (
           <Card
-            key={`p_${i}`}
+            key={`c_${i}`}
             i={i}
-            {...project}
-            progress={scrollYProgress}
+            {...card}
+            progress={() => container.current?.progress || 0}
             range={[i * 0.25, 1]}
             targetScale={targetScale}
           />
@@ -46,7 +58,8 @@ export default function Index() {
     </main>
   );
 }
-export const projects = [
+
+export const cards = [
   {
     title: "Pick Your Product",
     description:
