@@ -1,7 +1,11 @@
-import Card from "../components/Card";
-import { useEffect, useRef, useState } from "react";
+import Card from "../components/Card/Card";
+import { useEffect, useRef, useState, createContext } from "react";
 import GUI from "lil-gui";
 import useModels from "../hooks/useModels";
+
+// Create the context
+export const ThreeContext = createContext("onInit");
+
 export const meta = () => {
   return [
     { title: "Parallax Cards" },
@@ -30,10 +34,12 @@ export default function Index() {
   const container = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const { models, isLoaded } = useModels();
-  console.log(models, isLoaded);
-
   const [activeColorScheme, setActiveColorScheme] = useState("v1");
   const [activeLayout, setActiveLayout] = useState("v1");
+  const [activeContext, setActiveContext] = useState("instate");
+  useEffect(() => {
+    setActiveContext("afterUseEffect");
+  }, []);
 
   useEffect(() => {
     const gui = new GUI();
@@ -64,24 +70,29 @@ export default function Index() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  return (
-    <main ref={container} className="relative">
-      {cards.map((card, i) => {
-        const targetScale = 1 - (cards.length - i) * 0.05;
-        return (
-          <Card
-            key={`c_${i}`}
-            i={i}
-            {...card}
-            colorScheme={colorSchemes[activeColorScheme]}
-            layout={activeLayout}
-            progress={scrollProgress}
-            targetScale={targetScale}
-          />
-        );
-      })}
-    </main>
-  );
+  if (isLoaded) {
+    return (
+      <main ref={container} className="relative">
+        <ThreeContext.Provider value={activeContext}>
+          {cards.map((card, i) => {
+            const targetScale = 1 - (cards.length - i) * 0.05;
+            return (
+              <Card
+                key={`c_${i}`}
+                i={i}
+                {...card}
+                colorScheme={colorSchemes[activeColorScheme]}
+                layout={activeLayout}
+                progress={scrollProgress}
+                targetScale={targetScale}
+              />
+            );
+          })}
+        </ThreeContext.Provider>
+      </main>
+    );
+  }
+  return null;
 }
 
 export const cards = [

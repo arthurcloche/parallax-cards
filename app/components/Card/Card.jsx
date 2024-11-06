@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import planet from "../../assets/12.png";
-
+import { useContext } from "react";
+import { ThreeContext } from "../../routes/_index";
 const Card = ({
   i,
   title,
@@ -12,6 +13,7 @@ const Card = ({
   targetScale,
   layout,
 }) => {
+  const contextProps = useContext(ThreeContext);
   const container = useRef(null);
   const cardRef = useRef(null);
   const verticalOffset = 70;
@@ -85,9 +87,6 @@ const Card = ({
           }}
           className="flex flex-row relative h-[600px] w-[1000px] rounded-[25px] p-[10px] pb-[40px] origin-top"
         >
-          {/* <div className="w-[50%] relative">
-            <canvas className="w-full h-full absolute top-0 left-0"></canvas>
-          </div> */}
           <div className="w-[50%] mx-10 mt-3 flex flex-col items-start  justify-between">
             <h2
               style={{
@@ -121,6 +120,9 @@ const Card = ({
                 <span className="inline-block ml-2">→</span>
               </a>
             </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img src={planet} alt="model" />
           </div>
         </div>
       </div>
