@@ -31,7 +31,7 @@ export default function Index() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const { models, isLoaded } = useModels();
   const [activeColorScheme, setActiveColorScheme] = useState("v1");
-  const [activeLayout, setActiveLayout] = useState("v2");
+  const [activeLayout, setActiveLayout] = useState("v1");
   const [activeContext, setActiveContext] = useState("instate");
   useEffect(() => {
     setActiveContext("afterUseEffect");
