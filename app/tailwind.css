@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,4 +15,23 @@ body {
 
 body {
   font-family: "Inter", sans-serif;
+}
+
+h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  }
+
+p {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+a {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  border: 2px solid #1d1e1e;
+  padding: 10px 20px;
+  border-radius: 5px;
 }

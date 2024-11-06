@@ -1,27 +1,131 @@
 import { useRef } from "react";
+import planet from "../../assets/12.png";
 
-const Card = ({ i, title, color }) => {
+const Card = ({
+  i,
+  title,
+  colorScheme,
+  maintext,
+  cta,
+  link,
+  progress,
+  targetScale,
+  layout,
+}) => {
   const container = useRef(null);
   const cardRef = useRef(null);
-  const verticalOffset = 60;
-
-  return (
-    <div
-      ref={container}
-      className="h-screen flex items-center justify-center sticky top-0"
-    >
+  const verticalOffset = 70;
+  const scale = progress * (targetScale - 1) + 1;
+  const { cards, text } = colorScheme;
+  if (layout === "v1") {
+    return (
       <div
-        ref={cardRef}
-        style={{
-          backgroundColor: color,
-          top: `calc(-5vh + ${i * verticalOffset}px)`,
-        }}
-        className="flex flex-col relative h-[500px] w-[1000px] rounded-[25px] p-[25px] origin-top"
+        ref={container}
+        className="card h-screen flex items-center justify-center sticky top-0"
       >
-        <h2 className="text-center m-0 text-[28px] text-[#1D1E1E]">{title}</h2>
+        <div
+          ref={cardRef}
+          style={{
+            backgroundColor: cards[i],
+            top: `calc(-5vh + ${i * verticalOffset}px)`,
+            transform: `scale(${scale})`,
+          }}
+          className="flex flex-col items-center justify-center relative h-[600px] w-[1000px] rounded-[25px] p-[10px] pb-[40px] origin-top"
+        >
+          <h2
+            style={{
+              color: text[i],
+            }}
+            className={`text-center m-0 text-[52px] font-space-grotesk font-semibold uppercase`}
+          >
+            {title}
+          </h2>
+          <div className="relative w-[50%]">
+            <img src={planet} alt="model" />
+          </div>
+          <div className="flex flex-row justify-between items-start">
+            <p
+              style={{
+                color: text[i],
+              }}
+              className={`text-left m-0 text-[14px] font-inter font-normal w-[50%] mx-auto`}
+            >
+              {maintext}
+            </p>
+            <a
+              href={link}
+              style={{
+                backgroundColor: text[i],
+                color: cards[i],
+                border: "none",
+                outline: "none",
+              }}
+              className={`text-center uppercase inline-block mx-auto text-[18px] font-space-grotesk font-semibold px-5 py-2 rounded-full`}
+            >
+              {cta}
+              <span className="inline-block ml-2">→</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  if (layout === "v2") {
+    return (
+      <div
+        ref={container}
+        className="card h-screen flex items-center justify-center sticky top-0"
+      >
+        <div
+          ref={cardRef}
+          style={{
+            backgroundColor: cards[i],
+            top: `calc(-5vh + ${i * verticalOffset}px)`,
+            transform: `scale(${scale})`,
+          }}
+          className="flex flex-row relative h-[600px] w-[1000px] rounded-[25px] p-[10px] pb-[40px] origin-top"
+        >
+          {/* <div className="w-[50%] relative">
+            <canvas className="w-full h-full absolute top-0 left-0"></canvas>
+          </div> */}
+          <div className="w-[50%] mx-10 mt-3 flex flex-col items-start  justify-between">
+            <h2
+              style={{
+                color: text[i],
+              }}
+              className={`m-0 text-[52px] font-space-grotesk font-semibold uppercase leading-[1.1]`}
+            >
+              {title}
+            </h2>
+            <div className="flex flex-col items-start pr-10">
+              <p
+                style={{
+                  color: text[i],
+                }}
+                className={`m-0 text-[14px] font-inter font-normal`}
+              >
+                {maintext}
+              </p>
+
+              <a
+                href={link}
+                style={{
+                  borderColor: text[i],
+                  color: text[i],
+                  border: "2px solid",
+                  outline: "none",
+                }}
+                className={`text-center uppercase mt-5 text-[18px] font-space-grotesk font-semibold px-5 py-2 rounded-full`}
+              >
+                {cta}
+                <span className="inline-block ml-2">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Card;

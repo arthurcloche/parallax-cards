@@ -1,6 +1,7 @@
 import Card from "../components/Card";
-import { useEffect, useRef } from "react";
-
+import { useEffect, useRef, useState } from "react";
+import GUI from "lil-gui";
+import useModels from "../hooks/useModels";
 export const meta = () => {
   return [
     { title: "Parallax Cards" },
@@ -8,38 +9,61 @@ export const meta = () => {
   ];
 };
 
+const colorSchemes = {
+  v1: {
+    cards: ["#B1F8FF", "#DDFF9E", "#6482FF"],
+    text: ["#1D1E1E", "#1D1E1E", "#F4F4F4"],
+  },
+  v2: {
+    cards: ["#DDFF9E", "#B1F8FF", "#486AF8"],
+    text: ["#1D1E1E", "#1D1E1E", "#F4F4F4"],
+  },
+  v3: {
+    cards: ["#5BC766", "#B6EFFF", "#EB86FF"],
+    text: ["#1D1E1E", "#1D1E1E", "#1D1E1E"],
+  },
+};
+
+const layouts = ["v1", "v2"];
+
 export default function Index() {
   const container = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const { models, isLoading } = useModels();
+  console.log(models, isLoading);
+
+  const [activeColorScheme, setActiveColorScheme] = useState("v1");
+  const [activeLayout, setActiveLayout] = useState("v1");
 
   useEffect(() => {
-    const initGSAP = async () => {
-      const gsap = (await import("gsap")).default;
-      const ScrollTrigger = (await import("gsap/ScrollTrigger")).default;
-
-      gsap.registerPlugin(ScrollTrigger);
-
-      const ctx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: container.current,
-          start: "top top",
-          end: "bottom bottom",
-          onUpdate: (self) => {
-            container.current.progress = self.progress;
-          },
-        });
+    const gui = new GUI();
+    gui
+      .add({ colorScheme: "v1" }, "colorScheme", ["v1", "v2", "v3"])
+      .name("Color Scheme")
+      .onChange((value) => {
+        setActiveColorScheme(value);
       });
-
-      return ctx;
-    };
-
-    let ctx;
-    initGSAP().then((context) => {
-      ctx = context;
-    });
-
-    return () => ctx?.revert();
+    gui
+      .add({ layout: "v1" }, "layout", layouts)
+      .name("Layout")
+      .onChange((value) => {
+        setActiveLayout(value);
+      });
+    return () => gui.destroy();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = scrollTop / docHeight;
+      setScrollProgress(scrollPercent);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <main ref={container} className="relative">
       {cards.map((card, i) => {
@@ -49,8 +73,9 @@ export default function Index() {
             key={`c_${i}`}
             i={i}
             {...card}
-            progress={() => container.current?.progress || 0}
-            range={[i * 0.25, 1]}
+            colorScheme={colorSchemes[activeColorScheme]}
+            layout={activeLayout}
+            progress={scrollProgress}
             targetScale={targetScale}
           />
         );
@@ -61,27 +86,28 @@ export default function Index() {
 
 export const cards = [
   {
-    title: "Pick Your Product",
-    description:
-      "Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.",
-    src: "rock.jpg",
-    link: "https://www.ignant.com/2023/03/25/ad2186-matthias-leidingers-photographic-exploration-of-awe-and-wonder/",
-    color: "#A3E3B8",
-  },
-  {
     title: "Build Your Brand",
-    description:
-      "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes”—so French photographer Clément Chapillon describes his latest highly captivating project Les rochers fauves (French for ‘The tawny rocks’).",
-    src: "tree.jpg",
-    link: "https://www.ignant.com/2022/09/30/clement-chapillon-questions-geographical-and-mental-isolation-with-les-rochers-fauves/",
-    color: "#D4F9E0",
+    id: "brand",
+    maintext:
+      "Shopify’s got you covered with incredible sourcing tools like print-on-demand and dropshipping. Whether you're launching a merch line, setting up an esports store, or starting something new, Shopify makes it easy to manage inventory costs and logistics.",
+    cta: "Start your Business ",
+    link: "https://www.ignant.com/2023/03/25/ad2186-matthias-leidingers-photographic-exploration-of-awe-and-wonder/",
   },
   {
-    title: "Sell Online and Offline",
-    description:
-      "Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal, they’re encoded with an ambiguity—a certain tension—that lets the viewer find their own story within them.",
-    src: "water.jpg",
-    link: "https://www.ignant.com/2023/10/28/capturing-balis-many-faces-zissou-documents-the-sacred-and-the-mundane-of-a-fragile-island/",
-    color: "#DDFF9E",
+    title: "Pick Your Product",
+    id: "product",
+    maintext:
+      "Shopify’s got you covered with incredible sourcing tools like print-on-demand and dropshipping. Whether you're launching a merch line, setting up an esports store, or starting something new, Shopify makes it easy to manage inventory costs and logistics.",
+    cta: "Find Products to Sell",
+    link: "https://www.shopify.com/",
+  },
+
+  {
+    title: "Sell On/Offline",
+    id: "sell",
+    maintext:
+      "Shopify’s got you covered with incredible sourcing tools like print-on-demand and dropshipping. Whether you're launching a merch line, setting up an esports store, or starting something new, Shopify makes it easy to manage inventory costs and logistics.",
+    cta: "Learn to drive Sales",
+    link: "https://www.ignant.com/2023/03/25/ad2186-matthias-leidingers-photographic-exploration-of-awe-and-wonder/",
   },
 ];
