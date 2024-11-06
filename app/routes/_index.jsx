@@ -15,15 +15,11 @@ export const meta = () => {
 
 const colorSchemes = {
   v1: {
-    cards: ["#B1F8FF", "#DDFF9E", "#6482FF"],
-    text: ["#1D1E1E", "#1D1E1E", "#F4F4F4"],
+    cards: ["#5BC766", "#B6EFFF", "#EB86FF"],
+    text: ["#1D1E1E", "#1D1E1E", "#1D1E1E"],
   },
   v2: {
-    cards: ["#DDFF9E", "#B1F8FF", "#486AF8"],
-    text: ["#1D1E1E", "#1D1E1E", "#F4F4F4"],
-  },
-  v3: {
-    cards: ["#5BC766", "#B6EFFF", "#EB86FF"],
+    cards: ["#CEFC17", "#22C357", "#ED6BF8"],
     text: ["#1D1E1E", "#1D1E1E", "#1D1E1E"],
   },
 };
@@ -35,7 +31,7 @@ export default function Index() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const { models, isLoaded } = useModels();
   const [activeColorScheme, setActiveColorScheme] = useState("v1");
-  const [activeLayout, setActiveLayout] = useState("v1");
+  const [activeLayout, setActiveLayout] = useState("v2");
   const [activeContext, setActiveContext] = useState("instate");
   useEffect(() => {
     setActiveContext("afterUseEffect");
@@ -43,17 +39,13 @@ export default function Index() {
 
   useEffect(() => {
     const gui = new GUI();
-    gui
-      .add({ colorScheme: "v1" }, "colorScheme", ["v1", "v2", "v3"])
-      .name("Color Scheme")
-      .onChange((value) => {
-        setActiveColorScheme(value);
-      });
+
     gui
       .add({ layout: "v1" }, "layout", layouts)
       .name("Layout")
       .onChange((value) => {
         setActiveLayout(value);
+        setActiveColorScheme(value);
       });
     return () => gui.destroy();
   }, []);
@@ -114,7 +106,7 @@ export const cards = [
   },
 
   {
-    title: "Sell On/Offline",
+    title: "Sell On / Offline",
     id: "sell",
     maintext:
       "Shopify’s got you covered with incredible sourcing tools like print-on-demand and dropshipping. Whether you're launching a merch line, setting up an esports store, or starting something new, Shopify makes it easy to manage inventory costs and logistics.",
