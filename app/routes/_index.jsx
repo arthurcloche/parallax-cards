@@ -29,8 +29,8 @@ const layouts = ["v1", "v2"];
 export default function Index() {
   const container = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const { models, isLoading } = useModels();
-  console.log(models, isLoading);
+  const { models, isLoaded } = useModels();
+  console.log(models, isLoaded);
 
   const [activeColorScheme, setActiveColorScheme] = useState("v1");
   const [activeLayout, setActiveLayout] = useState("v1");
