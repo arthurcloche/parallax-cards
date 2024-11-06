@@ -1,5 +1,7 @@
 import { useRef } from "react";
-import planet from "../../assets/12.png";
+import firstScene from "../../assets/img/01.png";
+import secondScene from "../../assets/img/02.png";
+import thirdScene from "../../assets/img/03.png";
 import { useContext } from "react";
 import { ThreeContext } from "../../routes/_index";
 const Card = ({
@@ -19,6 +21,7 @@ const Card = ({
   const verticalOffset = 70;
   const scale = progress * (targetScale - 1) + 1;
   const { cards, text } = colorScheme;
+  const img = [firstScene, secondScene, thirdScene][i];
   if (layout === "v1") {
     return (
       <div
@@ -42,8 +45,8 @@ const Card = ({
           >
             {title}
           </h2>
-          <div className="relative w-[50%]">
-            <img src={planet} alt="model" />
+          <div className="relative w-[80%]">
+            <img src={img} alt="model" />
           </div>
           <div className="flex flex-row justify-between items-start">
             <p
@@ -122,7 +125,7 @@ const Card = ({
             </div>
           </div>
           <div className="relative flex items-center justify-center">
-            <img src={planet} alt="model" />
+            <img src={img} alt="model" />
           </div>
         </div>
       </div>
