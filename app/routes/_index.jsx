@@ -1,10 +1,8 @@
 import Card from "../components/Card/Card";
-import { useEffect, useRef, useState, createContext } from "react";
+import { useEffect, useRef, useState } from "react";
 import GUI from "lil-gui";
 import useModels from "../hooks/useModels";
-
-// Create the context
-export const ThreeContext = createContext("onInit");
+import CardContext from "../contexts/CardContext";
 
 export const meta = () => {
   return [
@@ -32,10 +30,6 @@ export default function Index() {
   const { models, isLoaded } = useModels();
   const [activeColorScheme, setActiveColorScheme] = useState("v1");
   const [activeLayout, setActiveLayout] = useState("v1");
-  const [activeContext, setActiveContext] = useState("instate");
-  useEffect(() => {
-    setActiveContext("afterUseEffect");
-  }, []);
 
   useEffect(() => {
     const gui = new GUI();
@@ -65,7 +59,7 @@ export default function Index() {
   if (isLoaded) {
     return (
       <main ref={container} className="relative">
-        <ThreeContext.Provider value={activeContext}>
+        <CardContext.Provider value={models}>
           {cards.map((card, i) => {
             const targetScale = 1 - (cards.length - i) * 0.05;
             return (
@@ -80,7 +74,7 @@ export default function Index() {
               />
             );
           })}
-        </ThreeContext.Provider>
+        </CardContext.Provider>
       </main>
     );
   }

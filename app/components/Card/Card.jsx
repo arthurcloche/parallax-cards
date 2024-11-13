@@ -6,7 +6,7 @@ import fourthScene from "../../assets/img/04.png";
 import fifthScene from "../../assets/img/05.png";
 import sixthScene from "../../assets/img/06.png";
 import { useContext } from "react";
-import { ThreeContext } from "../../routes/_index";
+import CardContext from "../../contexts/CardContext";
 const Card = ({
   i,
   title,
@@ -18,7 +18,8 @@ const Card = ({
   targetScale,
   layout,
 }) => {
-  const contextProps = useContext(ThreeContext);
+  const contextProps = useContext(CardContext);
+  console.log(contextProps);
   const container = useRef(null);
   const cardRef = useRef(null);
   const verticalOffset = 80;

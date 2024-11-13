@@ -43,3 +43,19 @@ a {
   padding: 10px 20px;
   border-radius: 5px;
 }
+
+.title-words {
+  font-size: 256px;
+  line-height: 1;
+  font-family: "National", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.title-words-small {
+  font-size: 150px;
+  line-height: 1;
+  font-family: "National", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
