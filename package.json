@@ -10,9 +10,11 @@
     "start": "remix-serve ./build/server/index.js"
   },
   "dependencies": {
+    "@react-spring/three": "^9.7.5",
     "@remix-run/node": "^2.13.1",
     "@remix-run/react": "^2.13.1",
     "@remix-run/serve": "^2.13.1",
+    "@rive-app/react-canvas": "latest",
     "@types/three": "^0.169.0",
     "gltfjsx": "^6.5.3",
     "gsap": "^3.12.5",

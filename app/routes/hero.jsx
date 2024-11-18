@@ -63,8 +63,8 @@ export default function Index() {
           className="media h-[50vh]"
           style={{ backgroundColor: activeColor || "#ff0" }}
         ></div>
-        <div className="content flex flex-col justify-center  p-10 w-full">
-          <div className="words-container w-[80vw] title-words-small flex flex-wrap gap-4">
+        <div className="content flex flex-col justify-center p-10 w-full">
+          <div className="words-container w-[50vw] title-words-small flex flex-wrap gap-4">
             <span
               className={`inline-block transition-colors ${
                 activeColor === colors[0]

@@ -1,7 +1,7 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { useState, useEffect, useMemo } from "react";
-import _models from "../assets/gltfs/models.glb";
+import _models from "../assets/gltfs/beast.glb";
 
 // Cache outside the component to persist between renders
 const modelsCache = {
@@ -9,8 +9,8 @@ const modelsCache = {
   promise: null,
 };
 
-export default function useModels() {
-  const [models, setModels] = useState(null);
+export default function useBeastModel() {
+  const [beastModel, setBeastModel] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const loader = useMemo(() => {
@@ -25,7 +25,7 @@ export default function useModels() {
 
   useEffect(() => {
     if (modelsCache.data) {
-      setModels(modelsCache.data);
+      setBeastModel(modelsCache.data);
       setIsLoaded(true);
       return;
     }
@@ -35,17 +35,18 @@ export default function useModels() {
         // If there's already a loading promise, wait for it
         if (modelsCache.promise) {
           const loadedModels = await modelsCache.promise;
-          setModels(loadedModels.scene);
+          setBeastModel(loadedModels.scene);
         } else {
           // Create new promise and cache it
           modelsCache.promise = loader.loadAsync(_models);
           const loadedModels = await modelsCache.promise;
           modelsCache.data = loadedModels.scene;
-          setModels(loadedModels.scene);
+
+          setBeastModel(loadedModels.scene);
         }
       } catch (error) {
         console.error("Error loading models:", error);
-        setModels(null);
+        setBeastModel(null);
         modelsCache.promise = null;
       } finally {
         setIsLoaded(true);
@@ -55,5 +56,5 @@ export default function useModels() {
     loadModels();
   }, [loader]);
 
-  return { models, isLoaded };
+  return { beastModel, isLoaded };
 }

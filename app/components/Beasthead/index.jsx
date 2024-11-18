@@ -4,7 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const Canvas = (props) => {
   const canvas = useRef();
-  const { model, materials, transform, animateModels } = props;
+  const { model, materials } = props;
+  console.log(props);
 
   useEffect(() => {
     if (!canvas.current) return;
@@ -37,13 +38,10 @@ const Canvas = (props) => {
 
     for (let i = 0; i < model.children.length; i++) {
       const object = model.children[i];
-      const material = materials ? materials[i] : object.material;
+      const material = materials[i];
       const mesh = new THREE.Mesh(object.geometry, material);
-      mesh.scale.set(
-        transform?.scale ?? 1,
-        transform?.scale ?? 1,
-        transform?.scale ?? 1
-      );
+      // mesh.scale.set(0.5, 0.5, 0.5);
+      console.log(object, material);
       scene.add(mesh);
       currentMeshes.push(mesh);
     }
@@ -52,14 +50,12 @@ const Canvas = (props) => {
 
     const animate = () => {
       requestAnimationFrame(animate);
-      if (animateModels) {
-        const time = Date.now() * 0.001;
-        // First update rotations
-        for (let i = 0; i < currentMeshes.length; i++) {
-          currentMeshes[i].rotation.x += 0.005;
-          currentMeshes[i].rotation.y += 0.005;
-          currentMeshes[i].position.y = Math.abs(Math.sin(time * 2) * 0.1);
-        }
+      const time = Date.now() * 0.001;
+      // First update rotations
+      for (let i = 0; i < currentMeshes.length; i++) {
+        currentMeshes[i].rotation.x += 0.005;
+        currentMeshes[i].rotation.y += 0.005;
+        currentMeshes[i].position.y = Math.abs(Math.sin(time * 2) * 0.1);
       }
       controls.update();
       renderer.render(scene, camera);
