@@ -24,7 +24,8 @@ export default function Index() {
                 model={child}
                 materials={materials[child.name]}
                 className="w-full h-full"
-                animateModels={true}
+                transform={{ scale: 1.0 }}
+                animateModels={false}
               />
             </div>
           ))}
@@ -37,7 +38,7 @@ export default function Index() {
           <Canvas
             model={beastModel}
             className="w-full h-full"
-            transform={{ scale: 1.5 }}
+            transform={{ scale: 2.5 }}
             animateModels={false}
           />
         )}

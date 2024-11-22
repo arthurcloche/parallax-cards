@@ -4,15 +4,15 @@ import * as THREE from "three";
 const materials = {
   cap: [
     new THREE.MeshPhongMaterial({
-      color: "#049ef4",
-      emissive: "#1c2497",
+      color: "#00b3e3",
+      emissive: "#3851BB",
       specular: "#5c5c5c",
       flatShading: true,
       shininess: 25,
       side: THREE.FrontSide,
     }),
     new THREE.MeshPhongMaterial({
-      color: "#f0f",
+      color: "#3851BB",
       flatShading: true,
       shininess: 50,
       side: THREE.DoubleSide,
@@ -21,15 +21,15 @@ const materials = {
 
   basketball: [
     new THREE.MeshPhongMaterial({
-      color: "#049ef4",
-      emissive: "#1c2497",
-      specular: "#5c5c5c",
+      color: "#00b3e3",
+      emissive: "#005971",
+      specular: "#aaa",
       flatShading: true,
       shininess: 25,
       side: THREE.FrontSide,
     }),
     new THREE.MeshPhongMaterial({
-      color: "#f0f",
+      color: "#222",
       flatShading: true,
       shininess: 50,
       side: THREE.DoubleSide,
@@ -37,23 +37,23 @@ const materials = {
   ],
   chocolate: [
     new THREE.MeshPhongMaterial({
-      color: "#049ef4",
-      emissive: "#1c2497",
-      specular: "#5c5c5c",
+      color: "#672e06",
+      emissive: "#663C34",
+      specular: "#777",
       flatShading: true,
-      shininess: 25,
+      shininess: 3,
       side: THREE.FrontSide,
     }),
     new THREE.MeshPhongMaterial({
-      color: "#f0f",
+      color: "#E64783",
       flatShading: true,
       shininess: 50,
       side: THREE.DoubleSide,
     }),
     new THREE.MeshPhongMaterial({
-      color: "#ff0",
+      color: "#00b3e3",
       flatShading: true,
-      shininess: 50,
+      shininess: 12,
       side: THREE.DoubleSide,
     }),
   ],
