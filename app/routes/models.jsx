@@ -1,18 +1,31 @@
+import { useEffect, useState } from "react";
 import Canvas from "../components/Canvas";
-const _models = ["cap", "basketball", "chocolate"];
-const colors = ["#5BC766", "#B6EFFF", "#EB86FF"];
+import Beasthead from "../components/Beasthead";
+import Shapes from "../components/Shapes";
 import useModels from "../hooks/useModels";
-import useBeastModel from "../hooks/useBeastModel";
+import GUI from "lil-gui";
 import { useMaterials } from "../hooks/useMaterials";
+
+const layouts = ["v1", "v2", "v3"];
+const shapes = ["star", "star", "bolt"];
+
 export default function Index() {
   const { models } = useModels();
   const materials = useMaterials();
-  const { beastModel } = useBeastModel();
-  console.log(beastModel);
-
+  const [colorScheme, setColorScheme] = useState("v1");
+  useEffect(() => {
+    const gui = new GUI();
+    gui
+      .add({ layout: "v1" }, "Color Scheme", layouts)
+      .name("Color Scheme")
+      .onChange((value) => {
+        setColorScheme(value);
+      });
+    return () => gui.destroy();
+  }, []);
   return (
     <main className="bg-[#0a0a0a]">
-      <div className="flex items-center justify-center h-full">
+      {/* <div className="flex items-center justify-center h-full">
         <h2 className="text-white text-[200px] font-bold">Models</h2>
       </div>
 
@@ -26,22 +39,39 @@ export default function Index() {
                 className="w-full h-full"
                 transform={{ scale: 1.0 }}
                 animateModels={false}
+                colorScheme={colorScheme}
               />
             </div>
           ))}
       </div>
       <div className="flex items-center justify-center h-full">
-        <h2 className="text-white text-[200px] font-bold">Mr Beast Head</h2>
+        <h2 className="text-white text-[200px] font-bold">Mr Beast</h2>
       </div>
       <div className="flex items-center justify-center">
-        {beastModel && (
-          <Canvas
-            model={beastModel}
-            className="w-full h-full"
-            transform={{ scale: 2.5 }}
-            animateModels={false}
-          />
-        )}
+        <Beasthead
+          className="w-full h-full"
+          transform={{ scale: 2.5 }}
+          animateModels={false}
+        />
+      </div>
+      */}
+      <div className="flex items-center justify-center h-full">
+        <h2 className="text-white text-[200px] font-bold">Shapes</h2>
+      </div>
+
+      <div className="flex flex-row h-full">
+        {shapes.map((child, i) => (
+          <div key={`${child}+${i}`} className="w-1/3">
+            <Shapes
+              model={child}
+              materials={materials["shapes"]}
+              className="w-full h-full"
+              transform={{ scale: 0.5 }}
+              animateModels={false}
+              colorScheme={colorScheme}
+            />
+          </div>
+        ))}
       </div>
     </main>
   );

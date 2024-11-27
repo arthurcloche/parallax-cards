@@ -1,7 +1,7 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { useState, useEffect, useMemo } from "react";
-import _models from "../assets/gltfs/beast.glb";
+import _models from "../assets/gltfs/mrbeast.glb";
 
 // Cache outside the component to persist between renders
 const modelsCache = {
@@ -41,7 +41,6 @@ export default function useBeastModel() {
           modelsCache.promise = loader.loadAsync(_models);
           const loadedModels = await modelsCache.promise;
           modelsCache.data = loadedModels.scene;
-
           setBeastModel(loadedModels.scene);
         }
       } catch (error) {

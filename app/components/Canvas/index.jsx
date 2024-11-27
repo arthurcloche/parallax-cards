@@ -4,7 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const Canvas = (props) => {
   const canvas = useRef();
-  const { model, materials, transform, animateModels } = props;
+  const { model, materials, colorScheme, transform, animateModels } = props;
+  console.log(colorScheme);
 
   useEffect(() => {
     if (!canvas.current) return;
@@ -39,7 +40,7 @@ const Canvas = (props) => {
 
     for (let i = 0; i < model.children.length; i++) {
       const object = model.children[i];
-      const material = materials ? materials[i] : object.material;
+      const material = materials[colorScheme][i];
       const mesh = new THREE.Mesh(object.geometry, material);
       mesh.scale.set(
         transform?.scale ?? 1,
@@ -83,7 +84,7 @@ const Canvas = (props) => {
       controls.dispose();
       renderer.dispose();
     };
-  }, [model, materials]);
+  }, [model, materials, colorScheme, transform, animateModels]);
 
   return (
     <div className="container">

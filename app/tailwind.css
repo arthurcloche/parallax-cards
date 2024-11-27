@@ -23,13 +23,14 @@ body {
 
 body {
   font-family: "Shopify", sans-serif;
+  background-color: #b6efff;
 }
 
 h2 {
   font-family: "National", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  }
+}
 
 p {
   font-family: "Shopify", sans-serif;
@@ -59,5 +60,3 @@ a {
   font-weight: 600;
   text-transform: uppercase;
 }
-
-
