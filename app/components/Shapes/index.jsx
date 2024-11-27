@@ -42,15 +42,14 @@ function computeShape(shape, config) {
     }
   }
   if (shape === "bolt") {
-    const { outerRadius, innerRadius, wonkiness, offset, randomIndices } =
-      config;
+    const { outerRadius, innerRadius } = config;
 
-    _points.push({ x: 0, y: outerRadius });
+    _points.push({ x: 0, y: outerRadius * 1.5 });
     _points.push({ x: innerRadius, y: 0 });
-    _points.push({ x: innerRadius * 0.25, y: 0 });
-    _points.push({ x: 0, y: -outerRadius });
+    _points.push({ x: innerRadius * 0.25, y: 0.5 });
+    _points.push({ x: 0, y: -outerRadius * 1.5 });
     _points.push({ x: -innerRadius, y: 0 });
-    _points.push({ x: -innerRadius * 0.25, y: 0 });
+    _points.push({ x: -innerRadius * 0.25, y: -0.5 });
   }
 
   return _points;
@@ -123,7 +122,7 @@ const Shapes = (props) => {
 
     const extrudeSettings = {
       steps: 2,
-      depth: 16,
+      depth: 4,
       bevelEnabled: true,
       bevelThickness: 1,
       bevelSize: 1,
@@ -133,7 +132,7 @@ const Shapes = (props) => {
     console.log(materials);
     const geometry = new THREE.ExtrudeGeometry(curve, extrudeSettings);
     const material = new THREE.MeshPhongMaterial({
-      color: "#E64783",
+      color: "#EB86FF",
       emissive: "#663C34",
       specular: "#777",
       flatShading: true,
