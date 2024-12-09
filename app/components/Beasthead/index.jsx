@@ -8,10 +8,10 @@ const helper = {
   expand: (val) => val * 2.0 - 1.0,
   ease: (val) => (val < 0.5 ? 2 * val * val : -1 + (4 - 2 * val) * val),
 };
-
+//entry point
 const Beasthead = (props) => {
   const canvas = useRef();
-  const { transform, animateModels } = props;
+  const { transform } = props;
   const { beastModel } = useBeastModel();
   const mouse = useRef({ x: 0, y: 0 });
   const targetQuaternion = useRef(new THREE.Quaternion());
@@ -20,7 +20,6 @@ const Beasthead = (props) => {
   useEffect(() => {
     if (!canvas.current || !beastModel) return;
     let currentMeshes = [];
-    // Setup scene
     let scene = new THREE.Scene();
     // fixed height for debug
     const s = 800;
@@ -88,11 +87,9 @@ const Beasthead = (props) => {
       );
       const isInRadius = mouseDistance < 1;
 
-      // Smoothly transition between states
       transitionFactor += isInRadius ? 0.05 : -0.05;
       transitionFactor = Math.max(0, Math.min(1, transitionFactor));
 
-      // Calculate both positions
       const mouseTarget = new THREE.Vector3(
         mouse.current.x * 3,
         mouse.current.y * 3,
@@ -108,7 +105,6 @@ const Beasthead = (props) => {
 
       const idleTarget = new THREE.Vector3(idleX * 0.5, idleY * 0.25, 2);
 
-      // Interpolate between them
       const target = new THREE.Vector3().lerpVectors(
         idleTarget,
         mouseTarget,
