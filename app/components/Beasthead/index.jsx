@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import useBeastModel from "../../hooks/useBeastModel";
 
 const helper = {
@@ -31,11 +30,7 @@ const Beasthead = (props) => {
       antialias: true,
       alpha: true,
     });
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.enableZoom = false;
-    controls.update();
+
     renderer.setSize(canvas.current.clientWidth, s);
 
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -118,7 +113,6 @@ const Beasthead = (props) => {
         mesh.quaternion.slerp(targetQuaternion.current, 0.03);
       }
 
-      controls.update();
       renderer.render(scene, camera);
     };
 
@@ -128,7 +122,7 @@ const Beasthead = (props) => {
       window.removeEventListener("mousemove", handleMouseMove);
       scene.remove(...currentMeshes);
       cancelAnimationFrame(animate);
-      controls.dispose();
+
       renderer.dispose();
     };
   }, [beastModel]);
