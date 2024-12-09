@@ -1,6 +1,6 @@
 import { useRef, useEffect, useMemo } from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "three-stdlib";
 
 function computeCurve(points) {
   let shape = new THREE.Shape();
