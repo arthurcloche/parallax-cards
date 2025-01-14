@@ -3,11 +3,6 @@
   src: url("assets/fonts/TestNational2Condensed-Regular.otf");
 }
 
-@font-face {
-  font-family: "Shopify";
-  src: url("assets/fonts/ShopifySans-Regular_2268949385.otf");
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,43 +15,91 @@ body {
     color-scheme: dark;
   }
 }
-
-body {
-  font-family: "Shopify", sans-serif;
-  background-color: #b6efff;
+:root {
+  --black: #1D1E1E;
+  --white: #EFEFEF;
+  --card-title: 5rem;
+  --card-text: 22px
 }
 
-h2 {
+.xl-lg{
   font-family: "National", sans-serif;
+  font-size: 5rem;
   font-weight: 600;
+  line-height: 140%;
+}
+
+.xs-lg{
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  line-height: 140%;
+}
+
+.card-title {
   text-transform: uppercase;
+  color : var(--black);
+  padding: 0;
+  text-align: center;
+  line-height: calc(var(--card-title) * 1.5);
+  /* background-color: aqua; */
 }
 
-p {
-  font-family: "Shopify", sans-serif;
-  font-weight: 400;
-}
-
-a {
+.card-link {
   font-family: "National", sans-serif;
-  font-weight: 600;
-  border: 2px solid #1d1e1e;
+  text-transform: uppercase;
+  color : var(--white);
   padding: 10px 20px;
-  border-radius: 5px;
+  background-color: var(--black);
+  text-align: center;
 }
 
-.title-words {
-  font-size: 256px;
-  line-height: 1;
-  font-family: "National", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
+.card-text{
+  color : var(--black);
+  width : 70%;
 }
 
-.title-words-small {
-  font-size: 150px;
-  line-height: 1;
-  font-family: "National", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
+.children-container{
+  width : 80%;
+  height : 40vh;
+  max-height: 800px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap : 0px;
+}
+
+
+@media screen and (max-width: 540px) {
+  :root {
+    --card-title: 3rem;
+    --card-text: 16px;
+  }
+
+  .xl-lg {
+    font-size: 2.5rem;
+    line-height: 240%;
+  }
+
+  .xs-lg {
+    font-size: 16px;
+    line-height: 120%;
+  }
+
+  .children-container {
+    max-height: 640px;
+  }
+
+  .card-content{
+    width : 100%;
+    flex-direction: column;
+    gap : 20px;
+  }
+
+  .card-text{
+    width : 80%;
+  }
 }
