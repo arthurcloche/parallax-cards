@@ -2,7 +2,7 @@ import Card from "../components/cards/Card";
 // import GUI from "lil-gui";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 export const meta = () => {
   return [
     { title: "Parallax Cards" },
@@ -19,7 +19,19 @@ export default function Index() {
   const container = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const scenes = [AddYourProduct, DesignYourStore, SellOnSocial];
+  // we need to preserve the scenes outside of this rendering branch.
+  const productScene = useRef(null);
+  const storeScene = useRef(null);
+  const socialScene = useRef(null);
+
+  const sceneRefs = useMemo(
+    () => [
+      { Component: AddYourProduct, ref: productScene },
+      { Component: DesignYourStore, ref: storeScene },
+      { Component: SellOnSocial, ref: socialScene },
+    ],
+    []
+  );
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -30,7 +42,7 @@ export default function Index() {
         onUpdate: (self) => {
           setScrollProgress(self.progress);
         },
-        scrub: true,
+        scrub: 1,
       });
     });
 
@@ -38,14 +50,17 @@ export default function Index() {
   }, []);
 
   return (
-    <div ref={container} className="relative">
+    <div ref={container} className="relative w-full">
       <div className="h-[1000px]"></div>
       <div className="cards">
         {cards.map((card, i) => {
-          const targetScale = 1 - (cards.length - i) * 0.05;
+          const targetScale = 1 - (1 - i / cards.length) * 0.1;
           const verticalOffset =
-            (container.current?.offsetWidth ?? 0) <= 540 ? 60 : 80;
-          const Scene = scenes[i];
+            (container.current?.offsetWidth ?? 0) <= 540
+              ? 60 + i * 10
+              : 120 - i * 10;
+          const { Component /*ref*/ } = sceneRefs[i];
+
           return (
             <Card
               key={`c_${i}`}
@@ -55,7 +70,7 @@ export default function Index() {
               targetScale={targetScale}
               verticalOffset={verticalOffset}
             >
-              {Scene && <Scene />}
+              <Component />
             </Card>
           );
         })}

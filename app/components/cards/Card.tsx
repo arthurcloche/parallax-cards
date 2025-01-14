@@ -46,7 +46,7 @@ const Card = ({
       >
         <h2 className={`card-title xl-lg w-[80%]`}>{title}</h2>
         <div className="relative children-container">{children}</div>
-        <div className="  card-content pt-5">
+        <div className="card-content pt-5">
           <p className={`card-text xs-lg  mx-auto`}>{maintext}</p>
           <a
             href={link}
