@@ -42,7 +42,7 @@ const Card = ({
           top: `calc(-${progress * 5}vh + ${i * verticalOffset}px)`,
           transform: `scale(${scale})`,
         }}
-        className="flex flex-col items-center justify-center relative h-auto max-w-[1200px] rounded-[25px] p-[0px] pb-[40px] origin-top overflow-hidden"
+        className="flex flex-col items-center justify-center relative h-auto w-[100%] max-w-[1200px] rounded-[25px] p-[0px] pb-[40px] origin-top overflow-hidden"
       >
         <h2 className={`card-title xl-lg w-[80%]`}>{title}</h2>
         <div className="relative children-container">{children}</div>

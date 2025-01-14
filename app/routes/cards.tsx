@@ -42,7 +42,7 @@ export default function Index() {
       <div className="h-[1000px]"></div>
       <div className="cards">
         {cards.map((card, i) => {
-          const targetScale = 1 - (cards.length - i) * 0.1;
+          const targetScale = 1 - (cards.length - i) * 0.05;
           const verticalOffset =
             (container.current?.offsetWidth ?? 0) <= 540 ? 60 : 80;
           const Scene = scenes[i];
