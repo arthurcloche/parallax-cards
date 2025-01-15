@@ -39,7 +39,7 @@ const Card = ({
         ref={cardRef}
         style={{
           backgroundColor: color,
-          top: `calc(-${progress * 5}vh + ${i * verticalOffset}px)`,
+          top: `calc(-${progress * 1}vh + ${i * verticalOffset}px)`,
           transform: `scale(${scale})`,
         }}
         className="flex flex-col items-center justify-center relative h-auto w-[100%] max-w-[1200px] rounded-[25px] p-[0px] pb-[40px] origin-top overflow-hidden"

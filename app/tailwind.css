@@ -22,14 +22,14 @@ body {
   --card-text: 22px
 }
 
-.xl-lg{
+.xl{
   font-family: "National", sans-serif;
   font-size: 5rem;
   font-weight: 600;
   line-height: 140%;
 }
 
-.xs-lg{
+.xs{
   font-family: "Inter", sans-serif;
   font-size: 22px;
   line-height: 140%;

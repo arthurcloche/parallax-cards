@@ -42,7 +42,7 @@ export default function Index() {
         onUpdate: (self) => {
           setScrollProgress(self.progress);
         },
-        scrub: 1,
+        scrub: true,
       });
     });
 
@@ -50,33 +50,32 @@ export default function Index() {
   }, []);
 
   return (
-    <div ref={container} className="relative w-full">
+    <>
       <div className="h-[1000px]"></div>
-      <div className="cards">
-        {cards.map((card, i) => {
-          const targetScale = 1 - (1 - i / cards.length) * 0.1;
-          const verticalOffset =
-            (container.current?.offsetWidth ?? 0) <= 540
-              ? 60 + i * 10
-              : 120 - i * 10;
-          const { Component /*ref*/ } = sceneRefs[i];
+      <div ref={container} className="relative w-full">
+        <div className="cards">
+          {cards.map((card, i) => {
+            const targetScale = 1 - (1 - i / cards.length) * 0.1;
+            const verticalOffset = 40;
+            const { Component /*ref*/ } = sceneRefs[i];
 
-          return (
-            <Card
-              key={`c_${i}`}
-              i={i}
-              {...card}
-              progress={scrollProgress}
-              targetScale={targetScale}
-              verticalOffset={verticalOffset}
-            >
-              <Component />
-            </Card>
-          );
-        })}
+            return (
+              <Card
+                key={`c_${i}`}
+                i={i}
+                {...card}
+                progress={scrollProgress}
+                targetScale={targetScale}
+                verticalOffset={verticalOffset}
+              >
+                <Component />
+              </Card>
+            );
+          })}
+        </div>
       </div>
       <div className="h-[1000px]"></div>
-    </div>
+    </>
   );
 }
 
