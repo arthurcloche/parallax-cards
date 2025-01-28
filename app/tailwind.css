@@ -9,17 +9,18 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-[#4a4a4a];
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
 }
 :root {
-  --black: #1D1E1E;
+  --black: #4a4a4a;
   --white: #EFEFEF;
   --card-title: 5rem;
   --card-text: 22px
+  
 }
 
 .xl{

@@ -21,4 +21,6 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  assetsInclude: [      '**/*.gltf',
+    '**/*.glb',],
 });

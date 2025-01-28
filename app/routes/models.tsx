@@ -12,7 +12,7 @@ const shapes: ("star" | "bolt")[] = ["bolt"];
 export default function Index() {
   //   const { models } = useModels();
   const materials = useMaterials();
-  console.log(materials);
+
   //   const [colorScheme, setColorScheme] = useState("v1");
   //   useEffect(() => {
   //     const gui = new GUI();
